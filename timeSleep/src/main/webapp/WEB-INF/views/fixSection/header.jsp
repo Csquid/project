@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>header.jsp</title>
 <%@ include file="../common/commonLib.jsp"%>
-<link rel="stylesheet" type="text/css" href="../resources/header.css" />
+<link rel="stylesheet" type="text/css" href="/resources/header.css" />
 <script>
 	(function($) {
 		"use strict";
@@ -57,6 +57,11 @@
 
 	})(jQuery);
 </script>
+<style type="text/css">
+#popUpWindow {
+	background: lightblue;
+}
+</style>
 </head>
 <body class="hero-anime">
 
@@ -90,19 +95,39 @@
 								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"><a
 									class="nav-link dropdown-toggle" data-toggle="dropdown"
 									href="#" role="button" aria-haspopup="true"
-									aria-expanded="false">
-									<!-- 여러가지 서비스 이동하기 -->
-									Services</a>
+									aria-expanded="false"> <!-- 여러가지 서비스 이동하기 --> Services
+								</a>
 									<div class="dropdown-menu">
-										<a class="dropdown-item" href="/floatSection/board">영화커뮤니티</a> <a
+										<a class="dropdown-item" href="/move/board">영화커뮤니티</a> <a
 											class="dropdown-item" href="#">Another action</a> <a
 											class="dropdown-item" href="#">Something else here</a> <a
 											class="dropdown-item" href="#">Another action</a>
 									</div></li>
 								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"><a
 									class="nav-link" href="#">Journal</a></li>
-								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"><a
-									class="nav-link" href="#">login</a></li>
+
+								<!-- 로그인 부분 -->
+								<c:if test="${empty sessionScope.member }">
+									<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+										<button type='button' class="btn btn-success"
+											data-toggle="modal" data-target="#popUpWindow">login</button>
+									</li>
+								</c:if>
+								<!-- 내정보 보기 -->
+								<c:if test="${not empty sessionScope.member }">
+									<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"><a
+										class="nav-link dropdown-toggle" data-toggle="dropdown"
+										href="#" role="button" aria-haspopup="true"
+										aria-expanded="false"> <!-- 여러가지 서비스 이동하기 -->
+											${sessionScope.member.name }님 환영합니다.
+									</a>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="#">내정보보기</a> <a
+												class="dropdown-item" href="/member/logout">로그아웃</a> <a
+												class="dropdown-item" href="#">기능2</a> <a
+												class="dropdown-item" href="#">기능3</a>
+										</div></li>
+								</c:if>
 							</ul>
 						</div>
 
